@@ -35,4 +35,24 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function saves() {
+        return $this->hasMany(Save::class);
+    }
+
+    public function isLikedByAuthUser() {
+        return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
+    public function isSavedByAuthUser() {
+        return $this->saves()->where('user_id', auth()->id())->exists();
+    }
 }

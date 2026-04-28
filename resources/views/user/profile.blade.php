@@ -3,7 +3,7 @@
 <main style="max-width: 900px; margin: 30px auto; padding: 25px; font-family: sans-serif;">
 
     <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; margin-bottom: 30px;">
-        <img src="{{ $user->avatar_url }}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #007bff; padding: 3px;">
+        <img src="{{ $user->avatar_url }}" style="width: 150px; height: 150px; border-radius: 50%;">
         <h2 style="margin-top: 15px; color: #333;">{{ $user->name }}</h2>
         <p style="color: #666;">{{ $user->email }}</p>
         @if(auth()->check() && auth()->id() === $user->id)

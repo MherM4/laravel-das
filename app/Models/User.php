@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const DEFAULT_AVATAR = 'storage/avatars/default_avatar.jpg';
     protected $fillable = [
         'name',
         'email',
@@ -40,10 +41,19 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        if ($this->avatar) {
-            return asset('storage/' . $this->avatar);
+        if (!$this->avatar) {
+            return asset(self::DEFAULT_AVATAR);
         }
 
-        return asset('storage/avatars/default_avatar.jpg');
+        if (str_starts_with($this->avatar, 'storage/')) {
+            return asset($this->avatar);
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
+
+    public function savedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'saves', 'user_id', 'post_id');
     }
 }
